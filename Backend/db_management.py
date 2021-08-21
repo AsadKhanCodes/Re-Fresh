@@ -27,7 +27,14 @@ def show_tables(conn):
 
 
 def create_table(conn, table_name: str, columns: str):
-	table_str = "CREATE TABLE IF NOT EXISTS " + table_name + " (" + columns + ")"
+	table_str = "CREATE TABLE IF NOT EXISTS " + table_name + " (id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(), " + columns + ")"
+	with conn.cursor() as cur:
+		cur.execute(table_str)
+		conn.commit()
+
+
+def delete_table(conn, table_name: str):
+	table_str = "DROP TABLE IF EXISTS " + table_name
 	with conn.cursor() as cur:
 		cur.execute(table_str)
 		conn.commit()
@@ -42,7 +49,14 @@ def show_columns(conn, table_name: str):
 			print(row)
 
 
-create_table(service, table_name = "Produce", columns = "id INT PRIMARY KEY, Name STRING, Location STRING")
-create_table(service, table_name = "Producer", columns = "id INT PRIMARY KEY, Name STRING, Stock INT, id_Producers INT")
+# delete_table(service, "Producer")
+# delete_table(service, "Produce")
+create_table(service, table_name = "producer", columns = "name STRING, location STRING")
+create_table(service, table_name = "produce", columns = "name STRING, Stock INT, id_producers UUID")
+create_table(service, table_name = "menu_items", columns = "old_price DECIMAL, new_price DECIMAL, max_listed INT, id_producers UUID")
+create_table(service, table_name = "menu_produce_bridge", columns = "produce_units INT, id_menu_item UUID, id_produce UUID")
 
 show_tables(service)
+#
+# show_columns(service, "Producer")
+# show_columns(service, "Produce")
