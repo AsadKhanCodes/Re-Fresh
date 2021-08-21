@@ -27,34 +27,24 @@ const ConsumerModel = db_conn.define("consumer", {
 });
 
 function readFrom(seql_conn, table_name, columns, modelName){
-    (async () => {
-    return await seql_conn.query("SELECT" +columns+ " FROM " +table_name, {
 
+    return seql_conn.query("SELECT" +columns+ " FROM " +table_name, {
         model: modelName,
         mapToModel: true,
     });
-    })();
 }
 
 function insertInto(seql_conn, table_name, columns, values, modelName){
-    (async () => {
-    return await seql_conn.query("INSERT INTO " + table_name + " " + columns + " VALUES " + values, {
+    return seql_conn.query("INSERT INTO " + table_name + " " + columns + " VALUES " + values, {
         model: modelName,
         mapToModel: true,
     });
-    })();
 }
 
 
-//(async () => {
-//    ConsumerModel.sync();
-//    var consumers = await readFrom(db_conn, "consumer", "*", ConsumerModel);
-//    console.log(consumers.length);
-////    await insertInto(db_conn, "consumer", "(name, hashed_password)", "('lol', 'totally valid hash')");
-//    console.log(await readFrom(db_conn, "consumer", "*", ConsumerModel));
-////    console.log(consumers.every(consumer => consumer instanceof ConsumerModel)); // true
-////    console.log("All users:", JSON.stringify(consumers, null, 2));
-//})();
-
-var consumers = readFrom(db_conn, "consumer", "*", ConsumerModel);
-console.log(consumers.length);
+(async () => {
+    ConsumerModel.sync(); // sync with db, doesn't rewrite if table exists
+    var consumers = await readFrom(db_conn, "consumer", "*", ConsumerModel); // read all from consumer table
+    console.log(consumers);
+    console.log(consumers.length);
+})();
