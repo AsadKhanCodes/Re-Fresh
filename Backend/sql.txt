@@ -1,0 +1,117 @@
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO;
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'Produce'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Produce`;
+		
+CREATE TABLE `Produce` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `Name` MEDIUMTEXT NULL DEFAULT NULL,
+  `Stock` INTEGER NULL DEFAULT NULL,
+  `id_Producers` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Producers'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Producers`;
+		
+CREATE TABLE `Producers` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `Name` MEDIUMTEXT NULL DEFAULT NULL,
+  `Location` MEDIUMTEXT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Transactions'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Transactions`;
+		
+CREATE TABLE `Transactions` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `Units` INTEGER NULL DEFAULT NULL,
+  `Price` INTEGER NULL DEFAULT NULL,
+  `Time` DATETIME NULL DEFAULT NULL,
+  `id_Menu Items` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Menu Items'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Menu Items`;
+		
+CREATE TABLE `Menu Items` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `Old price` INTEGER NULL DEFAULT NULL,
+  `New price` INTEGER NULL DEFAULT NULL,
+  `Max listed` INTEGER NULL DEFAULT NULL,
+  `id_Producers` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Menu Produce Bridge'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Menu Produce Bridge`;
+		
+CREATE TABLE `Menu Produce Bridge` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `Produce units` INTEGER NULL DEFAULT NULL,
+  `id_Menu Items` INTEGER NULL DEFAULT NULL,
+  `id_Produce` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys 
+-- ---
+
+ALTER TABLE `Produce` ADD FOREIGN KEY (id_Producers) REFERENCES `Producers` (`id`);
+ALTER TABLE `Transactions` ADD FOREIGN KEY (id_Menu Items) REFERENCES `Menu Items` (`id`);
+ALTER TABLE `Menu Items` ADD FOREIGN KEY (id_Producers) REFERENCES `Producers` (`id`);
+ALTER TABLE `Menu Produce Bridge` ADD FOREIGN KEY (id_Menu Items) REFERENCES `Menu Items` (`id`);
+ALTER TABLE `Menu Produce Bridge` ADD FOREIGN KEY (id_Produce) REFERENCES `Produce` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `Produce` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Producers` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Transactions` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Menu Items` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Menu Produce Bridge` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `Produce` (`id`,`Name`,`Stock`,`id_Producers`) VALUES
+-- ('','','','');
+-- INSERT INTO `Producers` (`id`,`Name`,`Location`) VALUES
+-- ('','','');
+-- INSERT INTO `Transactions` (`id`,`Units`,`Price`,`Time`,`id_Menu Items`) VALUES
+-- ('','','','','');
+-- INSERT INTO `Menu Items` (`id`,`Old price`,`New price`,`Max listed`,`id_Producers`) VALUES
+-- ('','','','','');
+-- INSERT INTO `Menu Produce Bridge` (`id`,`Produce units`,`id_Menu Items`,`id_Produce`) VALUES
+-- ('','','','');
