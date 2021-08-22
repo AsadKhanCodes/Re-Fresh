@@ -17,6 +17,7 @@ var conn = new Sequelize({
   logging: false,
 });
 
+// Different Tables
 const ConsumerModel = conn.define("consumer", {
     id:{
         type: DataTypes.UUID,
@@ -26,6 +27,60 @@ const ConsumerModel = conn.define("consumer", {
     hashed_password: DataTypes.STRING.BINARY,
 });
 
+const ProducerModel = conn.define("producer", {
+    id:{
+        type: DataTypes.UUID,
+        primaryKey: true
+    },
+    name: DataTypes.STRING,
+    hashed_password: DataTypes.STRING.BINARY,
+    location: DataTypes.STRING,
+})
+
+const ProduceModel = conn.define("produce", {
+    id:{
+        type: DataTypes.UUID,
+        primaryKey: true
+    },
+    name: DataTypes.STRING,
+    stock: DataTypes.INTEGER,
+    id_producers: DataTypes.UUID,    
+})
+
+const MenuModel = conn.define("menu_items", {
+    id:{
+        type: DataTypes.UUID,
+        primaryKey: true
+    },
+    name: DataTypes.STRING,
+    old_price: DataTypes.DECIMAL,
+    new_price: DataTypes.DECIMAL,
+    max_listed: DataTypes.INTEGER,
+    id_producers: DataTypes.UUID,    
+})
+
+const MenuProduceBridgeModel = conn.define("menu_items", {
+    id:{
+        type: DataTypes.UUID,
+        primaryKey: true
+    },
+    produce_units: DataTypes.INTEGER,
+    id_menu_items: DataTypes.UUID,  
+    id_produce: DataTypes.UUID,    
+})
+
+const TransactionsModel = conn.define("menu_items", {
+    id:{
+        type: DataTypes.UUID,
+        primaryKey: true
+    },
+    units: DataTypes.INTEGER,
+    price: DataTypes.DECIMAL,
+    time: DataTypes.TIME,
+    id_menu_items: DataTypes.UUID,    
+})
+
+
 function sqlQuery(seqlConn, sqlString, modelName){
      return seqlConn.query(sqlString, {
         model: modelName,
@@ -34,8 +89,13 @@ function sqlQuery(seqlConn, sqlString, modelName){
 }
 
 (async () => {
-    ConsumerModel.sync(); // sync with db, doesn't rewrite if table exists
-
+    // sync with db, doesn't rewrite if table exists
+    ConsumerModel.sync();
+    ProducerModel.sync();
+    ProduceModel.sync();
+    MenuModel.sync();
+    MenuProduceBridgeModel.sync();
+    TransactionsModel.sync();
 //
 //
 //    var consumers = await sqlQuery(conn, "SELECT * FROM consumer", ConsumerModel); // read all from consumer table

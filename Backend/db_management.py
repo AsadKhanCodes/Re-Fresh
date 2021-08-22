@@ -64,19 +64,19 @@ def read_from(conn, table_name: str, columns: str):
 
 
 # delete_table(service, "producer")
-# delete_table(service, "user_login")
+# delete_table(service, "menu_items")
 
 # create_table(service, table_name = 'consumer', columns = "name STRING, hashed_password BYTES")
 #
 # create_table(service, table_name = "producer", columns = "name STRING, hashed_password BYTES, location STRING")
 # create_table(service, table_name = "produce", columns = "name STRING, Stock INT, id_producers UUID")
-# create_table(service, table_name = "menu_items", columns = "old_price DECIMAL, new_price DECIMAL, max_listed INT, id_producers UUID")
+# create_table(service, table_name = "menu_items", columns = "name STRING, old_price DECIMAL, new_price DECIMAL, max_listed INT, id_producers UUID")
 # create_table(service, table_name = "menu_produce_bridge", columns = "produce_units INT, id_menu_item UUID, id_produce UUID")
 # create_table(service, table_name = "transactions", columns = "units INT, price DECIMAL, time TIMESTAMP, id_menu_item UUID")
 
 # insert_into(service, table_name = "consumer", columns = "name, hashed_password", values = "('mo', 'fakehash')")
-read_from(service, table_name = "consumer", columns = "*")
+# read_from(service, table_name = "consumer", columns = "*")
 # show_tables(service)
 #
-# show_columns(service, "Producer")
+show_columns(service, "transactions")
 # show_columns(service, "Produce")
