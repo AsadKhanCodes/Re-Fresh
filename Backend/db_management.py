@@ -62,6 +62,12 @@ def read_from(conn, table_name: str, columns: str):
 		for row in rows:
 			print([str(cell) for cell in row])
 
+import json
+
+with open("jsonformatter.json", "r") as file:
+	rests = json.loads(file)
+
+print(len(rests))
 
 # delete_table(service, "producer")
 # delete_table(service, "menu_items")
@@ -78,5 +84,5 @@ def read_from(conn, table_name: str, columns: str):
 # read_from(service, table_name = "consumer", columns = "*")
 # show_tables(service)
 #
-show_columns(service, "transactions")
+# show_columns(service, "transactions")
 # show_columns(service, "Produce")

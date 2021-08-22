@@ -1,6 +1,6 @@
 const  { Sequelize, Model, DataTypes, QueryTypes } = require("sequelize-cockroachdb");
 
-var conn = new Sequelize({
+export var conn = new Sequelize({
   dialect: "postgres",
   username: "aryan",
   password: "4659Dwarriors",
@@ -19,7 +19,7 @@ var conn = new Sequelize({
 });
 
 // Different Tables
-const ConsumerModel = conn.define("consumer", {
+export const ConsumerModel = conn.define("consumer", {
     id:{
         type: DataTypes.UUID,
         primaryKey: true
@@ -28,7 +28,7 @@ const ConsumerModel = conn.define("consumer", {
     hashed_password: DataTypes.STRING.BINARY,
 });
 
-const ProducerModel = conn.define("producer", {
+export const ProducerModel = conn.define("producer", {
     id:{
         type: DataTypes.UUID,
         primaryKey: true
@@ -38,7 +38,7 @@ const ProducerModel = conn.define("producer", {
     location: DataTypes.STRING,
 })
 
-const ProduceModel = conn.define("produce", {
+export const ProduceModel = conn.define("produce", {
     id:{
         type: DataTypes.UUID,
         primaryKey: true
@@ -48,7 +48,7 @@ const ProduceModel = conn.define("produce", {
     id_producers: DataTypes.UUID,    
 })
 
-const MenuModel = conn.define("menu_items", {
+export const MenuModel = conn.define("menu_items", {
     id:{
         type: DataTypes.UUID,
         primaryKey: true
@@ -60,7 +60,7 @@ const MenuModel = conn.define("menu_items", {
     id_producers: DataTypes.UUID,    
 })
 
-const MenuProduceBridgeModel = conn.define("menu_items", {
+export const MenuProduceBridgeModel = conn.define("menu_items", {
     id:{
         type: DataTypes.UUID,
         primaryKey: true
@@ -70,7 +70,7 @@ const MenuProduceBridgeModel = conn.define("menu_items", {
     id_produce: DataTypes.UUID,    
 })
 
-const TransactionsModel = conn.define("menu_items", {
+export const TransactionsModel = conn.define("menu_items", {
     id:{
         type: DataTypes.UUID,
         primaryKey: true
@@ -82,7 +82,7 @@ const TransactionsModel = conn.define("menu_items", {
 })
 
 
-function sqlQuery(seqlConn, sqlString, modelName){
+export function sqlQuery(seqlConn, sqlString, modelName){
      return seqlConn.query(sqlString, {
         model: modelName,
         mapToModel: true,
