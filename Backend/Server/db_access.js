@@ -132,3 +132,5 @@ function sqlQuery(seqlConn, sqlString, modelName){
 //    consumers = await sqlQuery(conn, "SELECT * FROM consumer WHERE name='mo'", ConsumerModel); // read all from consumer table
 //    console.log(consumers[0])
 })();
+
+module.exports = {conn, sqlQuery, ConsumerModel}
