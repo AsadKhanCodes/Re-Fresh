@@ -74,7 +74,7 @@ def read_from(conn, table_name: str, columns: str):
 # create_table(service, table_name = "menu_produce_bridge", columns = "produce_units INT, id_menu_item UUID, id_produce UUID")
 # create_table(service, table_name = "transactions", columns = "units INT, price DECIMAL, time TIMESTAMP, id_menu_item UUID")
 
-insert_into(service, table_name = "consumer", columns = "name, hashed_password", values = "('mo', 'fakehash')")
+# insert_into(service, table_name = "consumer", columns = "name, hashed_password", values = "('mo', 'fakehash')")
 read_from(service, table_name = "consumer", columns = "*")
 # show_tables(service)
 #
