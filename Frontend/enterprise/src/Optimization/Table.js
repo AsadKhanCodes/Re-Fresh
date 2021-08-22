@@ -33,15 +33,51 @@ for (let i = 0; i < TableData.length; i++){
 export default function BasicTable() {
   const classes = useStyles();
 
+  
+async function Produce() {
+  console.log(
+      fetch(
+          'http://localhost:3001/produce',
+          {method: "POST"}
+          ).then(response => {
+      return response.json();
+  }));
+  
+}
+
+async function Menu() {
+  console.log(
+      fetch(
+          'http://localhost:3001/menu',
+          {method: "POST"}
+          ).then(response => {
+      return response.json();
+  }));
+  
+}
+
+var menuItem;
+
+async function FillData() {
+  var menuObj = Menu();
+  var prodObj = Produce();
+
+  menuItem = menuObj;
+  console.log(menuObj);
+  
+}
+
   return (
-    <TableContainer component={Paper}>
+    
+
+    <TableContainer onClick={FillData} component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell><b>Produce</b></TableCell>
-            <TableCell align="right"><b>Average Monthly Usage</b></TableCell>
             <TableCell align="right"><b>Stock&nbsp;</b></TableCell>
             <TableCell align="right"><b>Cost Per Unit&nbsp;</b></TableCell>
+            <TableCell align="right"><b>Average Monthly Usage</b></TableCell>
             <TableCell align="right"><b>Requisition&nbsp;</b></TableCell>
           </TableRow>
         </TableHead>
@@ -59,6 +95,34 @@ export default function BasicTable() {
           ))}
         </TableBody>
       </Table>
+      
+      <br></br><br></br><br></br>
+      
+      
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell><b>Menu Items</b></TableCell>
+            <TableCell align="right"><b>Price Per Unit&nbsp;</b></TableCell>
+            <TableCell align="right"><b>Average Monthly Sales</b></TableCell>
+            <TableCell align="right"><b>Average Monthly Revenue&nbsp;</b></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row.produce}>
+              <TableCell component="th" scope="row">
+                {menuItem}
+              </TableCell>
+              <TableCell align="right">{row.avgMonthlyUsage}</TableCell>
+              <TableCell align="right">{row.stock}</TableCell>
+              <TableCell align="right">{row.cpu}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </TableContainer>
+    
+    
   );
 }

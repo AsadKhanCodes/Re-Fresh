@@ -17,4 +17,18 @@ const TableData = [
     }
 ]
 
+const MenuData = [
+    {
+        'Item': 'Sandwich',
+        'Price Per Unit': 100,
+        'Avg Monthly Sales': 50,
+        'Avg Monthly Revenue': 1,
+    },
+    {
+        'Item': 'Wrap',
+        'Price Per Unit': 100,
+        'Avg Monthly Sales': 50,
+        'Avg Monthly Revenue': 1,
+    }
+]
 export default TableData

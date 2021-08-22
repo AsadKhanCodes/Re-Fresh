@@ -29,6 +29,32 @@ app.post('/post/:table', (req, res) => {
       })
 })
 
+app.post('/optimize', (req, res) => {    
+  db.conn.query("SELECT * FROM produce").then(response => {
+      res.status(200).send(response);
+  }).catch(error => {
+      res.status(500).send(error);
+    })
+})
+
+
+app.post('/produce', (req, res) => {    
+  db.conn.query("SELECT * FROM produce WHERE id_producers = 'c1855c0d-2fcd-414e-80f7-d8c918ab5bbd'").then(response => {
+      res.status(200).send(response);
+  }).catch(error => {
+      res.status(500).send(error);
+    })
+})
+
+
+app.post('/menu', (req, res) => {    
+  db.conn.query("SELECT * FROM menu_items WHERE id_producers = 'c1855c0d-2fcd-414e-80f7-d8c918ab5bbd'").then(response => {
+      res.status(200).send(response);
+  }).catch(error => {
+      res.status(500).send(error);
+    })
+})
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })

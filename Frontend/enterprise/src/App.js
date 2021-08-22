@@ -39,6 +39,19 @@ function App() {
         }));
         
     }
+
+    async function optimize() {
+        console.log(
+            fetch(
+                'http://localhost:3001/optimize',
+                {method: "POST"}
+               ).then(response => {
+            return response.json();
+        }));
+        
+    }
+
+
     return (
         <Grid container spacing = {5} className={classes.grid}>
             <Grid item xs={12}>
@@ -48,7 +61,7 @@ function App() {
             </Grid>
             <Grid item xs={6}>
                 <Paper className= {classes.paper}>
-                <button onClick={postTest}>t</button>
+                <button onClick={optimize}>t</button>
                 </Paper>
             </Grid>
             <Grid item xs={6}>
