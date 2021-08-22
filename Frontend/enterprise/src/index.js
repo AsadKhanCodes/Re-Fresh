@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import BasicTable from './Optimization/Table'
-
+import App from './App'
 ReactDOM.render(
   <React.StrictMode>
-  <BasicTable />
+ 
+   <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );
