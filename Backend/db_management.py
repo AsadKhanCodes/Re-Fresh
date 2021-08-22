@@ -3,7 +3,7 @@ Created on 2021-08-21
 Author: Aryan Gajelli
 """
 import psycopg2
-
+from psycopg2.extras import RealDictCursor
 service = psycopg2.connect(
 	database = 're-fresh-3057.refresh_backend',
 	user = 'aryan',
@@ -51,7 +51,7 @@ def show_columns(conn, table_name: str):
 
 def insert_into(conn, table_name: str, columns: str, values: str):
 	with conn.cursor() as cur:
-		cur.execute("INSERT INTO " + table_name + " (" + columns + ") VALUES " + values)
+		cur.execute("INSERT INTO " + table_name +" " + columns + " VALUES " + values)
 	conn.commit()
 
 
@@ -61,13 +61,26 @@ def read_from(conn, table_name: str, columns: str):
 		rows = cur.fetchall()
 		for row in rows:
 			print([str(cell) for cell in row])
+		
 
 import json
+import random
+with open("restaraunts.json", "r") as file:
+	rests = json.load(file)
 
-with open("jsonformatter.json", "r") as file:
-	rests = json.loads(file)
-
-print(len(rests))
+for key, rest in rests.items():
+	rest_name = key
+	with service.cursor() as cur:
+		cur.execute("SELECT * FROM producer WHERE name='"+rest_name+"'")
+		rest_json = cur.fetchall()[0]
+		rest_id = rest_json[0]
+		# print(rest_id, rest_json)
+	# insert_into(service, table_name = "produce", columns = "(name, stock)", values = f"('chicken', 'fakehash')")
+		
+	# for menu_section in rest['items'][0]['entries']['items']:
+	# 	for item in menu_section['entries']['items']:
+	# 		insert_into(service, table_name="menu_items", columns="(name, old_price, max_listed, id_producers)",  values=f"('{item['name']}', '{item['price'][1:]}', '{random.randint(0,30)}', '{rest_id}')")
+	# insert_into(service, table_name = "producer", columns = "(name, hashed_password, Location)", values = "('"+key+"', 'fakehash', 'loc')")
 
 # delete_table(service, "producer")
 # delete_table(service, "menu_items")
@@ -80,8 +93,8 @@ print(len(rests))
 # create_table(service, table_name = "menu_produce_bridge", columns = "produce_units INT, id_menu_item UUID, id_produce UUID")
 # create_table(service, table_name = "transactions", columns = "units INT, price DECIMAL, time TIMESTAMP, id_menu_item UUID")
 
-# insert_into(service, table_name = "consumer", columns = "name, hashed_password", values = "('mo', 'fakehash')")
-# read_from(service, table_name = "consumer", columns = "*")
+
+read_from(service, table_name = "menu_items", columns = "*")
 # show_tables(service)
 #
 # show_columns(service, "transactions")
