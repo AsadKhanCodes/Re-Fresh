@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.Sidebar {
+    height: 100vh;
+    width: 15vw;
+    background-color: rgb(252, 252, 252);
+    box-shadow: 2px 2px 5px grey;
+}
+
+.SidebarList {
+    height: auto;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.SidebarList .row {
+    width: 100%;
+    height: 60px;
+    /* border: 1px solid black; */
+    list-style-type: none;
+    margin: 0%;
+    display: flex;
+    flex-direction: row;
+    color:grey;
+    justify-content: center;
+    align-items: center;
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+    transition: 0.3s;
+}
+
+.SidebarList .row:hover {
+    cursor: pointer;
+    background-color: green;
+    color: white;
+}
+
+.SidebarList #active {
+    background-color: green;
+    color: white
+}
+
+.row #icon {
+    flex: 30%;
+    display: grid;
+    place-items: center;
+}
+
+.row #title {
+    flex: 70%;
+}

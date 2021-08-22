@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Sidebar from './Sidebar/Sidebar'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Sidebar />
   </React.StrictMode>,
   document.getElementById('root')
 );
