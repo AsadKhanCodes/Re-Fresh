@@ -55,9 +55,12 @@ def insert_into(conn, table_name: str, columns: str, values: str):
 	conn.commit()
 
 
-def read_from(conn, table_name: str, columns: str):
+def read_from(conn, table_name: str, columns: str, where: str = None):
 	with conn.cursor() as cur:
-		cur.execute("SELECT " + columns + " FROM " + table_name)
+		if where:
+			cur.execute("SELECT " + columns + " FROM " + table_name + " WHERE " +where)
+		else:
+			cur.execute("SELECT " + columns + " FROM " + table_name)
 		rows = cur.fetchall()
 		for row in rows:
 			print([str(cell) for cell in row])
@@ -68,14 +71,15 @@ import random
 with open("restaraunts.json", "r") as file:
 	rests = json.load(file)
 
-for key, rest in rests.items():
-	rest_name = key
-	with service.cursor() as cur:
-		cur.execute("SELECT * FROM producer WHERE name='"+rest_name+"'")
-		rest_json = cur.fetchall()[0]
-		rest_id = rest_json[0]
-		# print(rest_id, rest_json)
-	# insert_into(service, table_name = "produce", columns = "(name, stock)", values = f"('chicken', 'fakehash')")
+
+rest_name = "3-way-restaurant-bronx"
+
+with service.cursor() as cur:
+	cur.execute("SELECT * FROM producer WHERE name='"+rest_name+"'")
+	rest_json = cur.fetchall()[0]
+	rest_id = rest_json[0]
+	# print(rest_id, rest_json)
+# insert_into(service, table_name = "produce", columns = "(name, stock, id_producers)", values = f"('fish (lbs)', '{random.randint(0, 100)}', '{rest_id}')")
 		
 	# for menu_section in rest['items'][0]['entries']['items']:
 	# 	for item in menu_section['entries']['items']:
@@ -94,7 +98,7 @@ for key, rest in rests.items():
 # create_table(service, table_name = "transactions", columns = "units INT, price DECIMAL, time TIMESTAMP, id_menu_item UUID")
 
 
-read_from(service, table_name = "menu_items", columns = "*")
+read_from(service, table_name = "produce", columns = "*", where=f"id_producers = '{rest_id}'")
 # show_tables(service)
 #
 # show_columns(service, "transactions")
