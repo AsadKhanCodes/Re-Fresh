@@ -29,16 +29,12 @@ function App() {
         
     }
     async function postTest() {
+        let query = "SELECT * FROM consumer";
         console.log(
             fetch(
-                'http://localhost:3001/post',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/html; charset=UTF-8',
-                    },       
-                    body: "SELECT * FROM consumer"
-                }).then(response => {
+                'http://localhost:3001/post/consumer',
+                {method: "POST"}
+               ).then(response => {
             return response.json();
         }));
         

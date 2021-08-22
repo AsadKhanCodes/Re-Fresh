@@ -20,8 +20,9 @@ app.get('/', (req, res) => {
       })
 })
 
-app.get('/post', (req, res) => {
-    db.sqlQuery(db.conn,req.body, db.ConsumerModel).then(response => {
+app.post('/post/:table', (req, res) => {    
+    db.sqlQuery(db.conn, "SELECT * FROM " + req.params.table, db.ConsumerModel).then(response => {
+        console.log(req.body)
         res.status(200).send(response);
     }).catch(error => {
         res.status(500).send(error);
